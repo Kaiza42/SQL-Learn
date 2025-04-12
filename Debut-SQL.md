@@ -42,7 +42,7 @@ create table Users (
   prenom varchar(50) not null,
   nom varchar(50)not null,
   age int not null,
-  naissance date null,
+  naissance date null
 );
 ```
 Une table avec des contraite exemple not Null et null <br>
@@ -55,7 +55,7 @@ create table Users (
   prenom varchar(50) not null,
   nom varchar(50)not null,
   age int not null,
-  naissance date null,
+  naissance date null
 );
 ```
 J'ai oublier ``test`` dans l'entité ``Users``
