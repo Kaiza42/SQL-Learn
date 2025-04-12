@@ -31,7 +31,7 @@ create table Users (
   test numeric null
 );
 ```
-Une table avec des obligatoire exemple not Null et null <br>
+Une table avec des obligations exemple not Null et null <br>
 ``not null`` => ne peut pas etre vide <br>
 ``null`` => peut etre vide 
 ```sql
