@@ -77,3 +77,16 @@ alter table Users
 rename to Membre;
 ```
 
+si je voudrais suprimer une colonne dans ma table
+
+```sql 
+alter table Users 
+drop column email;
+```
+
+et si je souhaite suprimer une table entière 
+
+```sql 
+drop table Users;
+```
+
