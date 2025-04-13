@@ -90,3 +90,18 @@ et si je souhaite suprimer une table entière
 drop table Users;
 ```
 
+```SQL
+CREATE TABLE Flight(
+   flight_id UUID PRIMARY KEY,
+   flight_departuretime TIMESTAMPTZ NOT NULL,
+   flight_arrivaltime TIMESTAMPTZ NOT NULL,
+   arrival_airport_id UUID NOT NULL,
+   departure_airport_id UUID NOT NULL,
+   plane_id UUID NOT NULL,
+   check (departure_airport_id <> arrival_airport_id)
+   FOREIGN KEY (departure_airport_id) REFERENCES Airport(airport_id),
+   FOREIGN KEY (arrival_airport_id) REFERENCES Airport(airport_id),
+   FOREIGN KEY (plane_id) REFERENCES Plane(plane_id)
+);
+```
+
