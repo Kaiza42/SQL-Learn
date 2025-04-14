@@ -96,10 +96,10 @@ CREATE TABLE Flight(
    flight_departuretime TIMESTAMPTZ NOT NULL,
    flight_arrivaltime TIMESTAMPTZ NOT NULL,
    plane_id UUID NOT NULL,
-   check (departure_airport_id <> arrival_airport_id),
    departure_airport_id UUID NOT NULL REFERENCES Airport(airport_id),
    arrival_airport_id UUID NOT NULL REFERENCES Airport(airport_id),
-   FOREIGN KEY (plane_id) REFERENCES Plane(plane_id)
+   FOREIGN KEY (plane_id) REFERENCES Plane(plane_id),
+   check (departure_airport_id <> arrival_airport_id)
 );
 ```
 
