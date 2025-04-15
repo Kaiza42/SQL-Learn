@@ -1,5 +1,15 @@
 # les debut
 
+# Classification des commande SQL
+
+| **Catégorie** | **Nom complet**                    | **Fonction**                                                                 | **Commandes principales**                         | **Utilisation**                             |
+|---------------|------------------------------------|------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------|
+| **DDL**        | Data Definition Language           | Créer, modifier ou supprimer des objets dans la base                        | `CREATE`, `ALTER`, `DROP`, `TRUNCATE`            | Définir la **structure** des tables         |
+| **DML**        | Data Manipulation Language         | Insérer, lire, modifier ou supprimer des données                            | `SELECT`, `INSERT`, `UPDATE`, `DELETE`           | Gérer le **contenu** des tables             |
+| **DCL**        | Data Control Language              | Gérer les **droits d’accès** des utilisateurs                               | `GRANT`, `REVOKE`                                | Sécurité et **autorisations**               |
+| **TCL**        | Transaction Control Language       | Gérer les **transactions** pour garantir la cohérence des données           | `COMMIT`, `ROLLBACK`, `SAVEPOINT`, `SET TRANSACTION` | Valider ou annuler des modifications groupées |
+ 
+
 ## les type
 | Type SQL         | Description                                      | Exemple de valeur             |
 |------------------|-------------------------------------------------|------------------------------|
