@@ -69,3 +69,31 @@
 | 🎯 Table spécifique               | `pg_dump -U user -d ma_base -t nom_table > table.sql`               | Sauvegarde uniquement une table spécifique (structure + données).                 |
 | 🧩 Format custom (compressé)      | `pg_dump -U user -d ma_base -F c -f base.backup`                    | Format binaire/restaurable avec `pg_restore`, utile pour les gros dumps.          |
 | 🧠 Multi-table personnalisée      | `pg_dump -U user -d ma_base -t table1 -t table2 > multi.sql`        | Exporte plusieurs tables spécifiques.                                             |
+
+## restaure
+| Type de fichier / sauvegarde        | Commande de restauration                                                                 | Description                                                                 |
+|------------------------------------|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ✅ Base complète (.sql)            | `psql -U user -d base < fichier.sql`                                                      | Restaure toute la base (structure + données)                               |
+| 🧩 Format custom (.backup)         | `pg_restore -U user -d base fichier.backup`                                               | Restaure depuis un dump compressé (format `-F c`)                          |
+| 📐 Structure uniquement (.sql)     | `psql -U user -d base < structure.sql`                                                    | Restaure uniquement les tables/schéma                                      |
+| 💾 Données uniquement (.sql)       | `psql -U user -d base < data.sql`                                                         | Restaure uniquement les données (`INSERT INTO ...`)                        |
+| 🎯 Table spécifique (SQL)          | `psql -U user -d base < table_backup.sql`                                                 | Restaure une seule table (structure + données)                             |
+| ❌ Supprimer une table avant       | `DROP TABLE nom_table;`                                                                   | Optionnel : si tu veux restaurer une table en la remplaçant complètement   |
+| 🔧 Recréer une base vide           | `createdb -U user nom_base`                                                               | Nécessaire avant `pg_restore` si la base n'existe pas encore               |
+| 📦 pg_restore : structure seule    | `pg_restore -U user -d base --schema-only fichier.backup`                                | Restaure uniquement les `CREATE TABLE`, etc. depuis un `.backup`           |
+| 📦 pg_restore : données seules     | `pg_restore -U user -d base --data-only fichier.backup`                                  | Restaure uniquement les données depuis un `.backup`                        |
+| 🔁 pg_restore : table spécifique   | `pg_restore -U user -d base -t nom_table fichier.backup`                                 | Restaure une table précise depuis un dump custom                           |
+
+### cas d'erreure lors de restauration 
+
+| Erreur                            | Cause probable                              | Solution recommandée                             | Commande à utiliser                                             |
+|----------------------------------|---------------------------------------------|--------------------------------------------------|-----------------------------------------------------------------|
+| Table already exists             | La table est déjà présente dans la base     | Supprimer la table avant de restaurer            | `DROP TABLE nom_table;`                                         |
+| Duplicate key violates unique... | Données déjà présentes ou conflits          | Nettoyer les données ou utiliser une base vierge | `TRUNCATE TABLE nom_table;` ou restaurer dans base temporaire   |
+| Role does not exist              | Le rôle utilisé dans le dump n'existe pas   | Créer le rôle avec les bons droits               | `CREATE ROLE nom WITH LOGIN PASSWORD 'xxx';`                    |
+| Permission denied                | Pas les droits suffisants                   | Utiliser `postgres` ou ajuster les privilèges    | `GRANT ALL PRIVILEGES ON DATABASE ma_base TO mon_user;`         |
+| Database already exists          | Tu essayes de recréer une base existante    | Supprimer la base ou en utiliser une autre       | `DROP DATABASE ma_base;` ou `pg_restore -d autre_base fichier`  |
+| Foreign key violation            | Conflit d’intégrité entre tables            | Restaurer les tables dans le bon ordre           | `pg_restore -t table1 -t table2 ... fichier.backup`             |
+| Syntax error in SQL              | Mauvais format ou fichier dump corrompu     | Vérifier ou régénérer le dump                    | Ouvrir le fichier `.sql` ou refaire le dump avec `pg_dump`      |
+
+
