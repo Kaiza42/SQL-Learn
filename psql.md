@@ -96,4 +96,61 @@
 | Foreign key violation            | Conflit d’intégrité entre tables            | Restaurer les tables dans le bon ordre           | `pg_restore -t table1 -t table2 ... fichier.backup`             |
 | Syntax error in SQL              | Mauvais format ou fichier dump corrompu     | Vérifier ou régénérer le dump                    | Ouvrir le fichier `.sql` ou refaire le dump avec `pg_dump`      |
 
+# Les droit 
+
+| Type d'objet      | Droits disponibles                                                                                 | Exemple `GRANT`                                                                 |
+|-------------------|----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| **Table**         | SELECT, INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER                                     | GRANT SELECT, UPDATE ON table_name TO user_name;                                |
+| **Colonne (table)**| UPDATE, INSERT (sur colonnes spécifiques uniquement)                                              | GRANT UPDATE (col1, col2) ON table_name TO user_name;                           |
+| **Vue**           | SELECT, UPDATE, INSERT, DELETE (si la vue le permet)                                              | GRANT SELECT ON view_name TO user_name;                                         |
+| **Séquence**      | SELECT (voir valeur), UPDATE (changer valeur), USAGE (utiliser dans nextval)                      | GRANT USAGE, SELECT ON sequence_name TO user_name;                              |
+| **Base de données**| CONNECT, CREATE, TEMP                                                                             | GRANT CONNECT ON DATABASE db_name TO user_name;                                 |
+| **Schéma**        | USAGE (accès), CREATE (créer objets dans le schéma)                                               | GRANT USAGE, CREATE ON SCHEMA schema_name TO user_name;                         |
+| **Fonction**      | EXECUTE                                                                                           | GRANT EXECUTE ON FUNCTION func_name(args) TO user_name;                         |
+| **Langage**       | USAGE                                                                                             | GRANT USAGE ON LANGUAGE plpgsql TO user_name;                                   |
+| **Type**          | USAGE                                                                                             | GRANT USAGE ON TYPE custom_type TO user_name;                                   |
+| **Foreign Table** | SELECT, INSERT, UPDATE, DELETE                                                                    | GRANT SELECT ON foreign_table_name TO user_name;                                |
+| **Aggregate**     | EXECUTE                                                                                           | GRANT EXECUTE ON AGGREGATE agg_name(args) TO user_name;                         |
+| **All objets d’un type**| ALL [PRIVILEGES]                                                                            | GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO user_name;              |
+
+
+## 🔹 Opérateurs de comparaison
+
+| Opérateur   | Description               | Exemple                   |
+|-------------|---------------------------|---------------------------|
+| `=`         | Égal à                    | `age = 30`                |
+| `!=` ou `<>`| Différent de              | `nom <> 'Alice'`          |
+| `>`         | Supérieur à               | `salaire > 2000`          |
+| `<`         | Inférieur à               | `quantité < 100`          |
+| `>=`        | Supérieur ou égal à       | `note >= 10`              |
+| `<=`        | Inférieur ou égal à       | `date <= '2023-12-31'`    |
+
+## 🔹 Opérateurs logiques
+
+| Opérateur | Description         | Exemple                              |
+|----------|---------------------|--------------------------------------|
+| `AND`    | ET logique           | `age > 18 AND ville = 'Paris'`       |
+| `OR`     | OU logique           | `ville = 'Paris' OR ville = 'Lyon'`  |
+| `NOT`    | Négation             | `NOT (age < 18)`                     |
+
+## 🔹 Opérateurs arithmétiques
+
+| Opérateur | Description     | Exemple               |
+|----------|-----------------|------------------------|
+| `+`      | Addition         | `prix + taxe`          |
+| `-`      | Soustraction     | `total - remise`       |
+| `*`      | Multiplication   | `quantité * prix`      |
+| `/`      | Division         | `salaire / 12`         |
+| `%`      | Modulo (reste)   | `age % 2`              |
+
+## 🔹 Opérateurs spéciaux
+
+| Opérateur     | Description                             | Exemple                           |
+|---------------|-----------------------------------------|-----------------------------------|
+| `BETWEEN`     | Entre deux valeurs incluses             | `age BETWEEN 18 AND 30`          |
+| `IN`          | Dans une liste de valeurs               | `ville IN ('Paris', 'Lyon')`     |
+| `LIKE`        | Recherche avec motif                    | `nom LIKE 'A%'`                  |
+| `IS NULL`     | Est NULL                                | `adresse IS NULL`                |
+| `IS NOT NULL` | N’est pas NULL                          | `adresse IS NOT NULL`            |
+| `EXISTS`      | Vérifie l’existence d’un sous-ensemble  | `EXISTS (SELECT 1 FROM ...)`     |
 
