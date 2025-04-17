@@ -154,3 +154,14 @@
 | `IS NOT NULL` | N’est pas NULL                          | `adresse IS NOT NULL`            |
 | `EXISTS`      | Vérifie l’existence d’un sous-ensemble  | `EXISTS (SELECT 1 FROM ...)`     |
 
+## 🔹 Fonctions d'agrégation SQL
+
+| Fonction   | Description                                      | Exemple                                 |
+|------------|--------------------------------------------------|------------------------------------------|
+| `COUNT()`  | Compte le nombre de lignes                       | `SELECT COUNT(*) FROM Produit;`          |
+| `SUM()`    | Calcule la somme d'une colonne                   | `SELECT SUM(PrixUnit) FROM Produit;`     |
+| `MAX()`    | Renvoie la valeur maximale d'une colonne         | `SELECT MAX(PrixUnit) FROM Produit;`     |
+| `MIN()`    | Renvoie la valeur minimale d'une colonne         | `SELECT MIN(PrixUnit) FROM Produit;`     |
+| `AVG()`    | Calcule la moyenne d'une colonne                 | `SELECT AVG(PrixUnit) FROM Produit;`     |
+
+
