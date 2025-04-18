@@ -165,3 +165,15 @@
 | `AVG()`    | Calcule la moyenne d'une colonne                 | `SELECT AVG(PrixUnit) FROM Produit;`     |
 
 
+## 🔹 Clauses principales d'une requête SQL
+
+| Clause       | Description                                                                 | Exemple                                                                 |
+|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| `SELECT`     | Spécifie les colonnes à afficher                                            | `SELECT nom, PrixUnit`                                                  |
+| `FROM`       | Spécifie la table à interroger                                              | `FROM Produit`                                                          |
+| `WHERE`      | Filtre les lignes avant l’agrégation ou le tri                              | `WHERE PrixUnit > 10`                                                   |
+| `GROUP BY`   | Regroupe les lignes selon une ou plusieurs colonnes                         | `GROUP BY CategorieID`                                                  |
+| `HAVING`     | Filtre les groupes après l’agrégation (comme WHERE mais pour GROUP BY)      | `HAVING COUNT(*) > 5`                                                   |
+
+
+

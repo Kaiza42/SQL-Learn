@@ -100,6 +100,5 @@ et si je souhaite suprimer une table entière
 drop table Users;
 ```
 
-alter table city 
 
 
