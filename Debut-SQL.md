@@ -10,40 +10,43 @@
 | **TCL**        | Transaction Control Language       | Gérer les **transactions** pour garantir la cohérence des données           | `COMMIT`, `ROLLBACK`, `SAVEPOINT`, `SET TRANSACTION` | Valider ou annuler des modifications groupées |
  
 
-## les type
+## 🧾 Les types de données en PostgreSQL
+
 | Type SQL         | Description                                      | Exemple de valeur             |
-|------------------|-------------------------------------------------|------------------------------|
-| `INT`            | Entier (nombre sans virgule)                    | 42                            |
-| `INTEGER`        | Synonyme de INT                                 | 100                           |
-| `REAL`           | Nombre à virgule flottante                      | 3.14                          |
-| `FLOAT`          | Autre nom pour REAL                             | 2.718                         |
-| `NUMERIC`        | Nombre avec précision décimale                  | 123.45                        |
-| `VARCHAR(n)`     | Texte (chaîne de caractères, max `n` caractères)| 'Alice'                       |
-| `CHAR(n)`        | Texte fixe de `n` caractères                    | 'ABCD'                        |
-| `TEXT`           | Texte de longueur illimitée                     | 'Un long paragraphe...'       |
-| `DATE`           | Date (AAAA-MM-JJ)                               | '2025-04-12'                  |
-| `DATETIME`       | Date + heure                                    | '2025-04-12 14:30:00'         |
-| `BOOLEAN`        | Vrai ou faux (1 ou 0 dans SQLite)               | 1 (true), 0 (false)           |
-| `BLOB`           | Données binaires (images, fichiers, etc.)       | (image stockée en base)       |
+|------------------|--------------------------------------------------|-------------------------------|
+| `INT` / `INTEGER`| Entier (32 bits)                                 | `42`                          |
+| `BIGINT`         | Grand entier (64 bits)                           | `9223372036854775807`         |
+| `SMALLINT`       | Petit entier (16 bits)                           | `32767`                       |
+| `SERIAL`         | Entier auto-incrémenté (équivalent à `AUTO_INCREMENT`) | `1`, `2`, `3`, ...    |
+| `REAL`           | Nombre à virgule flottante (précision 6 chiffres) | `3.14`                        |
+| `DOUBLE PRECISION` | Nombre flottant en double précision (15 chiffres) | `2.718281828459`          |
+| `NUMERIC(p,s)`   | Nombre exact avec précision (`p`) et échelle (`s`) | `123.45`, `9999.99`         |
+| `VARCHAR(n)`     | Chaîne de caractères avec limite (`n`)           | `'Alice'`                     |
+| `CHAR(n)`        | Chaîne fixe de `n` caractères (complétée avec espaces) | `'ABCD    '`             |
+| `TEXT`           | Texte de longueur illimitée                      | `'Un long paragraphe...'`     |
+| `BOOLEAN`        | Valeur logique `true` ou `false`                 | `true`, `false`               |
+| `DATE`           | Date (année-mois-jour)                           | `'2025-04-21'`                |
+| `TIMESTAMP`      | Date + heure sans fuseau                         | `'2025-
 
 
-## Table
+### 🔐 Contraintes dans une création de table PostgreSQL
 
-### les contrainte fans une création de table
-|  Contrainte     | Description                                                | Exemple SQL                                          |
-|-------------------------|------------------------------------------------------------|------------------------------------------------------|
-| `PRIMARY KEY`           | Identifiant unique de la table                             | `id INT PRIMARY KEY`                                 |
-| `FOREIGN KEY`           | Lie une colonne à une autre table                          | `FOREIGN KEY (film_id) REFERENCES films(id)`         |
-| `NOT NULL`              | Oblige à mettre une valeur                                 | `nom VARCHAR(50) NOT NULL`                           |
-| `NULL`                  | Autorise les valeurs manquantes                            | `bio TEXT NULL`                                      |
-| `UNIQUE`                | Interdit les doublons                                      | `email VARCHAR(100) UNIQUE`                          |
-| `DEFAULT`               | Donne une valeur par défaut                                | `note INT DEFAULT 0`                                 |
-| `CHECK`                 | Impose une condition sur les valeurs                       | `CHECK (note >= 0 AND note <= 10)`                   |
-| `AUTO INCREMENT`        | Valeur qui s'incrémente automatiquement (SQLite/MySQL)     | `id INTEGER PRIMARY KEY AUTOINCREMENT`               |
-| `ON DELETE CASCADE`     | Supprime aussi les lignes liées en cas de suppression      | `FOREIGN KEY (...) REFERENCES ... ON DELETE CASCADE` |
-| `ON DELETE SET NULL`    | Remplace par NULL si la ligne liée est supprimée           | `FOREIGN KEY (...) REFERENCES ... ON DELETE SET NULL`|
-| `ON UPDATE CASCADE`     | Met à jour automatiquement si la valeur liée change        | `FOREIGN KEY (...) REFERENCES ... ON UPDATE CASCADE` |
-| `COLLATE`               | Règle la sensibilité à la casse des comparaisons texte     | `nom TEXT COLLATE NOCASE`                            |
+| Contrainte             | Description                                                | Exemple SQL                                           |
+|------------------------|------------------------------------------------------------|-------------------------------------------------------|
+| `PRIMARY KEY`          | Identifiant unique de la table                             | `id SERIAL PRIMARY KEY`                               |
+| `FOREIGN KEY`          | Lie une colonne à une autre table                          | `FOREIGN KEY (film_id) REFERENCES films(id)`          |
+| `NOT NULL`             | Rend la colonne obligatoire                                | `nom VARCHAR(50) NOT NULL`                            |
+| `NULL`                 | Autorise les valeurs vides (valeur par défaut)             | `bio TEXT` ou `bio TEXT NULL`                         |
+| `UNIQUE`               | Interdit les doublons                                      | `email VARCHAR(100) UNIQUE`                           |
+| `DEFAULT`              | Valeur par défaut si aucune n’est fournie                  | `note INT DEFAULT 0`                                  |
+| `CHECK`                | Valide la donnée selon une condition                       | `CHECK (note >= 0 AND note <= 10)`                    |
+| `GENERATED ALWAYS AS`  | Colonne générée automatiquement à partir d'une expression  | `age INT GENERATED ALWAYS AS (YEAR(NOW()) - annee_naissance) STORED` |
+| `SERIAL` / `BIGSERIAL` | Simule l’auto-incrémentation (`AUTO INCREMENT`)            | `id SERIAL PRIMARY KEY`                               |
+| `ON DELETE CASCADE`    | Supprime les lignes liées quand la ligne principale est supprimée | `FOREIGN KEY (...) REFERENCES ... ON DELETE CASCADE` |
+| `ON DELETE SET NULL`   | Remplace la clé étrangère par `NULL` en cas de suppression | `FOREIGN KEY (...) REFERENCES ... ON DELETE SET NULL` |
+| `ON UPDATE CASCADE`    | Met à jour la clé étrangère si la clé primaire liée change | `FOREIGN KEY (...) REFERENCES ... ON UPDATE CASCADE` |
+| `COLLATE`              | Détermine la collation (ordre de tri, casse)               | `nom TEXT COLLATE "fr_FR"`                            |
+
 
 
 
