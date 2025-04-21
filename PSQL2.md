@@ -25,7 +25,9 @@ pour consulter vos database : ```\l```
 
 pour s'y connecter : ```\c nom_de_la_database``` 
 
-pour se connecter a un utilisateur et une base de donner ```psql -U utilisateur -d nom-de-la-database``` <br>
+pour se connecter a un utilisateur et une base de donnée : ```psql -U utilisateur -d nom-de-la-database``` <br>
+
+pour se connecter a un utilisateurs et une base de donnée avec PGCLI: ```pgcli -U utilisateurs -d nom_de_la_database``` <br>
 
 
 
