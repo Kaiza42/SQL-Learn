@@ -45,60 +45,7 @@
 | `ON UPDATE CASCADE`     | Met à jour automatiquement si la valeur liée change        | `FOREIGN KEY (...) REFERENCES ... ON UPDATE CASCADE` |
 | `COLLATE`               | Règle la sensibilité à la casse des comparaisons texte     | `nom TEXT COLLATE NOCASE`                            |
 
-Une table sans aucune contrainte.
-```sql
-create table Users (
-  id int primary key,
-  prenom varchar(50) not null,
-  nom varchar(50)not null,
-  age int not null,
-  naissance date null
-);
-```
-Une table avec des contraite exemple not Null et null <br>
-``not null`` => ne peut pas etre vide <br>
-``null`` => peut etre vide 
 
-```sql
-create table Users (
-  id int primary key ,
-  prenom varchar(50) not null,
-  nom varchar(50)not null,
-  age int not null,
-  naissance date null
-);
-```
-J'ai oublier ``test`` dans l'entité ``Users``
-
-```sql
-alter table Users 
-add column test varchar(50) not null;
-```
-Non c'etait pas ``test`` mais ``email``
-
-```sql
-alter table Users
-rename column test to email;
-```
-je ne veut plus appeler ma table ``Users`` mais ``membre``
-
-```sql
-alter table Users
-rename to Membre;
-```
-
-si je voudrais suprimer une colonne dans ma table
-
-```sql 
-alter table Users 
-drop column email;
-```
-
-et si je souhaite suprimer une table entière 
-
-```sql 
-drop table Users;
-```
 
 
 
