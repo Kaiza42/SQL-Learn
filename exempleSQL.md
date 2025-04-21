@@ -53,7 +53,7 @@ SELECT
   u.nom AS "Utilisateur",                                          -- Nom de l'utilisateur
   INITCAP(c.produit) AS "Produit",                                 -- Produit (première lettre en majuscule)
   TO_CHAR(c.montant, 'FM999999.00 €') AS "Montant",                -- Format de montant en euros
-  TO_CHAR(c.date_comande, 'YYYY-MM-DD HH24:MI') AS "Date commande" -- Formatage de la date
+  TO_CHAR(c.date_comande, 'YYYY-MM-DD HH24:MI') AS "Date commande" -- Formatage de la date 
 FROM commandes c
 JOIN utilisateurs u 
   ON c.utilisateurs_id = u.id
